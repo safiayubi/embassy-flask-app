@@ -65,6 +65,8 @@
                         Processed Forms
                     </a>
                 </li>
+                
+                <!-- Admin-only menu items -->
                 {% if session.user and session.user.role == 'admin' %}
                 <li class="nav-item">
                     <a href="{{ url_for('users') }}" class="nav-link {% if request.path == '/users' %}active{% endif %}">
@@ -74,15 +76,17 @@
                         Users
                     </a>
                 </li>
-                  <li class="nav-item">
-                        <a href="{{ url_for('logout') }}" class="nav-link">
-                            <svg class="nav-icon" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M3 10a1 1 0 011-1h10a1 1 0 110 2H4a1 1 0 01-1-1zM12 7a1 1 0 011-1V4a1 1 0 112 0v2a1 1 0 01-1 1h-2zM13 17a1 1 0 01-1-1v-2a1 1 0 112 0v2a1 1 0 01-1 1z"/>
-                            </svg>
-                            Logout
-                        </a>
-                    </li>
-{% endif %}
+                {% endif %}
+                
+                <!-- Logout option for ALL users (moved outside admin block) -->
+                <li class="nav-item">
+                    <a href="{{ url_for('logout') }}" class="nav-link">
+                        <svg class="nav-icon" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/>
+                        </svg>
+                        Logout
+                    </a>
+                </li>
             </ul>
         </nav>
 
