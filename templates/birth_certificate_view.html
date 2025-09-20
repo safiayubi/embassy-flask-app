@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birth Certificate - Afghanistan Embassy</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #e8ecf0;
+            margin: 0;
+            padding: 20px;
+            font-size: 14px;
+        }
+        
+        .certificate-container {
+            width: 210mm;
+            height: 297mm;
+            background: white;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        
+        /* Top blue bar */
+        .top-bar {
+            background: #6b7a8a;
+            height: 12mm;
+            width: 100%;
+        }
+        
+        /* Embassy header section */
+        .embassy-header {
+            padding: 25px 40px 20px 40px;
+            text-align: center;
+            position: relative;
+            background: #f0f3f7;
+        }
+        
+        .embassy-logos {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .left-text, .right-text {
+            font-size: 14px;
+            font-weight: bold;
+            color: #2c3e50;
+            width: 120px;
+        }
+        
+        .left-text {
+            text-align: right;
+            line-height: 1.3;
+        }
+        
+        .right-text {
+            text-align: left;
+            line-height: 1.3;
+        }
+        
+        .center-logo {
+            width: 90px;
+            height: 90px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="%23ddd" stroke="%23999" stroke-width="2"/><text x="50" y="55" text-anchor="middle" font-size="10" fill="%23666">LOGO</text></svg>') no-repeat center;
+            background-size: contain;
+            border-radius: 50%;
+        }
+        
+        .embassy-title {
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .title-main {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 3px;
+        }
+        
+        .title-location {
+            font-size: 14px;
+            color: #f39c12;
+            font-weight: bold;
+        }
+        
+        /* Certificate title bar */
+        .cert-title-bar {
+            background: #6b7a8a;
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0;
+        }
+        
+        /* Top info section with QR, serial, and photo */
+        .info-top-section {
+            padding: 25px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        
+        .qr-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .qr-code {
+            width: 80px;
+            height: 80px;
+            background: black;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="black"/><rect x="10" y="10" width="10" height="10" fill="white"/><rect x="30" y="10" width="10" height="10" fill="white"/><rect x="50" y="10" width="10" height="10" fill="white"/><rect x="70" y="10" width="10" height="10" fill="white"/><rect x="10" y="30" width="10" height="10" fill="white"/><rect x="30" y="30" width="10" height="10" fill="white"/><rect x="50" y="30" width="10" height="10" fill="white"/><rect x="70" y="30" width="10" height="10" fill="white"/></svg>');
+            border: 1px solid #333;
+        }
+        
+        .serial-info {
+            flex: 1;
+            padding: 0 20px;
+        }
+        
+        .serial-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+        
+        .serial-label {
+            font-size: 12px;
+            color: #555;
+            min-width: 70px;
+            font-weight: normal;
+        }
+        
+        .serial-value {
+            border: 2px solid #6b7a8a;
+            padding: 8px 15px;
+            font-weight: bold;
+            font-size: 14px;
+            background: white;
+            min-width: 120px;
+        }
+        
+        .photo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .photo-frame {
+            width: 100px;
+            height: 130px;
+            border: 2px solid #333;
+            background: #f5f5f5;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 130"><rect width="100" height="130" fill="%23f5f5f5" stroke="%23333" stroke-width="2"/><circle cx="50" cy="40" r="15" fill="%23ddd"/><path d="M35 70 Q50 55 65 70 L65 90 L35 90 Z" fill="%23ddd"/></svg>');
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Information table */
+        .info-table {
+            margin: 0 40px 30px 40px;
+        }
+        
+        .info-row {
+            display: flex;
+            margin-bottom: 1px;
+            min-height: 45px;
+        }
+        
+        .row-number {
+            background: #6b7a8a;
+            color: white;
+            width: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .row-label {
+            background: #6b7a8a;
+            color: white;
+            padding: 12px 15px;
+            font-weight: bold;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+        }
+        
+        .row-icon {
+            color: #b3c1d1;
+            margin-right: 8px;
+            font-size: 12px;
+        }
+        
+        .row-value {
+            background: #f8f9fa;
+            padding: 12px 20px;
+            border: 1px solid #dee2e6;
+            flex: 1.2;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            color: #2c3e50;
+        }
+        
+        /* Signature section */
+        .signature-section {
+            margin: 40px 40px 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            gap: 100px;
+        }
+        
+        .signature-box {
+            flex: 1;
+            height: 120px;
+            border: 2px solid #6b7a8a;
+            border-radius: 8px;
+            position: relative;
+            background: white;
+        }
+        
+        .signature-label {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 13px;
+            font-weight: bold;
+            color: #6b7a8a;
+            text-align: center;
+        }
+        
+        /* Side barcode */
+        .side-barcode {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            width: 200px;
+            height: 15px;
+            background: repeating-linear-gradient(
+                to right,
+                black 0px,
+                black 2px,
+                white 2px,
+                white 4px
+            );
+            transform-origin: 0 0;
+        }
+        
+        /* Footer */
+        .footer {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            right: 0;
+            padding: 0 40px;
+        }
+        
+        .footer-building {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        
+        .building-icon {
+            width: 50px;
+            height: 25px;
+            background: #6b7a8a;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .building-icon::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 20px;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid #6b7a8a;
+        }
+        
+        .footer-text {
+            font-size: 10px;
+            color: #555;
+            text-align: center;
+            line-height: 1.3;
+        }
+        
+        .contact-info {
+            margin-bottom: 3px;
+        }
+        
+        .embassy-name {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        /* Print styles */
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #6b7a8a;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .print-button:hover {
+            background: #5a6b7a;
+        }
+        
+        @media print {
+            body { 
+                background: white; 
+                padding: 0; 
+            }
+            .certificate-container { 
+                box-shadow: none; 
+                margin: 0;
+            }
+            .print-button { 
+                display: none; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button" onclick="window.print()">🖨️ Print Certificate</button>
+    
+    <div class="certificate-container">
+        <!-- Top blue bar -->
+        <div class="top-bar"></div>
+        
+        <!-- Embassy header -->
+        <div class="embassy-header">
+            <div class="embassy-logos">
+                <div class="left-text">
+                    سفارت<br>
+                    جمهوری اسلامی افغانستان<br>
+                    برلین - آلمان
+                </div>
+                <div class="center-logo"></div>
+                <div class="right-text">
+                    د افغانستان اسلامي جمهوریت<br>
+                    سفارت<br>
+                    برلین - آلمان
+                </div>
+            </div>
+            <div class="embassy-title">
+                <div class="title-main">EMBASSY of THE ISLAMIC REPUBLIC of AFGHANISTAN</div>
+                <div class="title-location">Berlin - Germany</div>
+            </div>
+        </div>
+        
+        <!-- Certificate title bar -->
+        <div class="cert-title-bar">
+            GEBURTSURKUNDE / BIRTH CERTIFICATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;د زیږیدنې تصدیق - تصدیق تولد
+        </div>
+        
+        <!-- Top information section -->
+        <div class="info-top-section">
+        <div class="qr-section">
+            <div class="qr-code"></div>
+        </div>
+        
+        <div class="serial-info">
+            <div class="serial-row">
+                <span class="serial-label">Serial No:</span>
+                <div class="serial-value">{{ certificate.id or 'N/A' }}</div>
+            </div>
+            <div class="serial-row">
+                <span class="serial-label">Issue Date:</span>
+                <div class="serial-value">{{ certificate.created }}</div>
+            </div>
+        </div>
+        
+        <div class="photo-section">
+            <div class="photo-frame"></div>
+        </div>
+    </div>
+    
+    <!-- Information table -->
+    <div class="info-table">
+        <div class="info-row">
+            <div class="row-number">1</div>
+            <div class="row-label">
+                <span class="row-icon">🔸</span>
+                Familienname / Family Name
+            </div>
+            <div class="row-value">{{ certificate.family_name }}</div>
+        </div>
+        
+        <div class="info-row">
+            <div class="row-number">2</div>
+            <div class="row-label">
+                <span class="row-icon">🔸</span>
+                Vorname / Given Name
+            </div>
+            <div class="row-value">{{ certificate.given_name }}</div>
+        </div>
+        
+        <div class="info-row">
+            <div class="row-number">3</div>
+            <div class="row-label">
+                <span class="row-icon">🔸</span>
+                Name vor der Eheschließung / Family Name before Marriage
+            </div>
+            <div class="row-value">{{ certificate.previous_name if certificate.previous_name else 'N/A' }}</div>
+        </div>
+        
+        <div class="info-row">
+            <div class="row-number">4</div>
+            <div class="row-label">
+                <span class="row-icon">🔸</span>
+                Geschlecht / Gender
+            </div>
+            <div class="row-value">{{ 'M' if certificate.gender == 'male' else 'F' }}</div>
+        </div>
+        
+        <div class="info-row">
+            <div class="row-number">5</div>
+            <div class="row-label">
+                <span class="row-icon">🔸</span>
+                Geburtsdatum / Date of Birth (dd.mm.yyyy)
+            </div>
+            <div class="row-value">{{ certificate.date_Of_birth }}</div>
+        </div>
+        
+        <div class="info-row">
+            <div class="row-number">6</div>
+            <div class="row-label">
+                <span class="row-icon">🔸</span>
+                Geburtsort / Place of Birth
+            </div>
+            <div class="row-value">
+                {% if certificate.place_Of_birth == 'afghanistan' %}
+                    AFGHANISTAN
+                {% elif certificate.place_Of_birth == 'germany' %}
+                    GERMANY
+                {% else %}
+                    {{ certificate.place_Of_birth|upper }}
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="info-row">
+            <div class="row-number">7</div>
+            <div class="row-label">
+                <span class="row-icon">🔸</span>
+                Name des Vaters / Father's Name
+            </div>
+            <div class="row-value">{{ certificate.father_name }}</div>
+        </div>
+        
+        <div class="info-row">
+            <div class="row-number">8</div>
+            <div class="row-label">
+                <span class="row-icon">🔸</span>
+                Name der Mutter / Mother's Name
+            </div>
+            <div class="row-value">{{ certificate.mother_name }}</div>
+        </div>
+        
+        <div class="info-row">
+            <div class="row-number">9</div>
+            <div class="row-label">
+                <span class="row-icon">🔸</span>
+                Tazkira Nr | Passnummer | Identitätsbestätigung / Tazkira No | Passport No | Confirmation of ID
+            </div>
+            <div class="row-value">{{ certificate.passport_number }}</div>
+        </div>
+    </div>
+        <!-- Signature section -->
+        <div class="signature-section">
+            <div class="signature-box">
+                <div class="signature-label">Signature & Stamp</div>
+            </div>
+            <div class="signature-box">
+                <div class="signature-label">مهر و امضاء</div>
+            </div>
+        </div>
+        
+        <!-- Side barcode -->
+        <div class="side-barcode"></div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-building">
+                <div class="building-icon"></div>
+            </div>
+            <div class="footer-text">
+                <div class="contact-info">
+                    📧 info@embassy.de | ☎️ Tel: +49 (0) 30 24 23 - 16 | 🌐 afghambassy.de | 📧 bsginfo@afghanistan.de | 📱 AfghanistanGER
+                </div>
+                <div class="embassy-name">Embassy of the Islamic Republic of Afghanistan Berlin - Germany</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

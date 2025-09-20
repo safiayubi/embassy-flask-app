@@ -1,0 +1,377 @@
+{% extends "base.html" %}
+
+{% block title %}Birth Certificates - Econsulate{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="page-header">
+ <div class="form-container">
+    <div class="form-header">
+        <h1>Birth Certificate</h1>
+        <p>Complete the form below to create a new birth certificate</p>
+    </div>
+
+    <!-- FIX: added enctype for file uploads -->
+    <form id="birthCertificateForm" method="POST" action="{{ url_for('create_birth_certificate') }}" enctype="multipart/form-data">
+        <div class="form-grid">
+            <div class="form-group">
+                <label class="form-label" for="familyName">Family Name</label>
+                <input type="text" id="familyName" name="familyName" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="givenName">Given Name</label>
+                <input type="text" id="givenName" name="givenName" class="form-input" required>
+            </div>
+
+            <div class="form-group full-width">
+                <label class="form-label" for="previousName">Previous Name</label>
+                <input type="text" id="previousName" name="previousName" class="form-input" placeholder="If applicable">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Date of Birth</label>
+                <div class="date-input-group">
+                    <input type="number" placeholder="DD" min="1" max="31" class="form-input date-input" name="birthDay" required>
+                    <span class="date-separator">.</span>
+                    <input type="number" placeholder="MM" min="1" max="12" class="form-input date-input" name="birthMonth" required>
+                    <span class="date-separator">.</span>
+                    <input type="number" placeholder="YYYY" min="1900" max="2025" class="form-input date-input" name="birthYear" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Gender</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="male" name="gender" value="male" class="radio-input" required>
+                        <label for="male" class="radio-label">Male</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="female" name="gender" value="female" class="radio-input" required>
+                        <label for="female" class="radio-label">Female</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="placeOfBirth">Place of Birth</label>
+                <select id="placeOfBirth" name="placeOfBirth" class="form-select" required>
+                    <option value="">Choose your option</option>
+                    <option value="afghanistan">Afghanistan</option>
+                    <option value="germany">Germany</option>
+                    <option value="other">Other Country</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="passportNumber">Passport/Tazkira Number</label>
+                <input type="text" id="passportNumber" name="passportNumber" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="fatherName">Father Name</label>
+                <input type="text" id="fatherName" name="fatherName" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="motherName">Mother Name</label>
+                <input type="text" id="motherName" name="motherName" class="form-input" required>
+            </div>
+        </div>
+
+        <!-- Upload Sections -->
+        <div class="form-grid">
+            <div class="form-group">
+                <label class="form-label">Birth Certificate Photo</label>
+                <p class="upload-description">This image will appear as proof in the birth certificate</p>
+                <div class="upload-container" id="birthImageUpload">
+                    <div class="upload-area" id="birthUploadArea">
+                        <svg class="upload-icon" width="48" height="48" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+                        </svg>
+                        <h3>Upload Birth Certificate Image</h3>
+                        <p>Drop your image here or click to browse</p>
+                        <p class="file-types">PNG, JPG, JPEG up to 5MB</p>
+                    </div>
+                    <input type="file" id="birthImage" name="birthImage" accept="image/*" class="file-input" required>
+                    <div class="upload-preview" id="birthImagePreview"></div>
+                </div>
+                <div class="error-message" id="birthImageError" style="display: none;"></div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">ID Card Verification</label>
+                <p class="upload-description">For verification purposes only - will not appear in certificate</p>
+                <div class="upload-container" id="idCardUpload">
+                    <div class="upload-area" id="idUploadArea">
+                        <svg class="upload-icon" width="48" height="48" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/>
+                        </svg>
+                        <h3>Upload ID Card</h3>
+                        <p>Drop your ID card here or click to browse</p>
+                        <p class="file-types">PNG, JPG, JPEG up to 5MB</p>
+                    </div>
+                    <input type="file" id="idCard" name="idCard" accept="image/*" class="file-input" required>
+                    <div class="upload-preview" id="idCardPreview"></div>
+                </div>
+                <div class="error-message" id="idCardError" style="display: none;"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="radio-group">
+                <div class="radio-option">
+                    <input type="checkbox" id="bornOutside" name="bornOutside" class="checkbox-input">
+                    <label for="bornOutside" class="radio-label">Born outside of country</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="agreeTerms" name="agreeTerms" class="checkbox-input" required>
+            <label for="agreeTerms" class="checkbox-label">
+                I hereby confirm that all the information provided above is accurate and complete to the best of my knowledge. I understand that providing false information may result in legal consequences.
+            </label>
+        </div>
+
+        <div class="form-actions">
+            <!-- FIX: cancel button now redirects -->
+            <a href="{{ url_for('birth_certificates') }}" class="btn btn-secondary">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
+                </svg>
+                Cancel
+            </a>
+
+            <button type="submit" class="btn btn-primary">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                Save Changes
+            </button>
+        </div>
+    </form>
+ </div>
+</div>
+
+<style>
+/* Upload container styles */
+.upload-container {
+    position: relative;
+    transition: all 0.2s;
+}
+
+.upload-container:hover {
+    border-color: #667eea;
+    background-color: #f8fafc;
+}
+
+.upload-container.dragover {
+    border-color: #667eea;
+    background-color: #eff6ff;
+}
+
+.upload-container.has-file {
+    border-color: #10b981;
+    background-color: #f0fdf4;
+}
+
+.upload-area {
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.file-input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.upload-preview {
+    padding: 1rem;
+    display: none;
+}
+
+.upload-preview.show {
+    display: block;
+}
+
+.upload-preview img {
+    max-width: 100%;
+    max-height: 150px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.file-info {
+    background: #f3f4f6;
+    padding: 0.75rem;
+    border-radius: 6px;
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #4b5563;
+}
+
+.error-message {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // File validation function
+    function validateFile(file, maxSize = 5 * 1024 * 1024) { // 5MB default
+        const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+        
+        if (!validTypes.includes(file.type)) {
+            return 'Please upload a valid image file (PNG, JPG, JPEG)';
+        }
+        
+        if (file.size > maxSize) {
+            return 'File size must be less than 5MB';
+        }
+        
+        return null;
+    }
+
+    // Generic file upload handler
+    function setupFileUpload(inputId, previewId, containerId, uploadAreaId, errorId) {
+        const input = document.getElementById(inputId);
+        const preview = document.getElementById(previewId);
+        const container = document.getElementById(containerId);
+        const uploadArea = document.getElementById(uploadAreaId);
+        const errorDiv = document.getElementById(errorId);
+
+        if (!input || !preview || !container || !uploadArea || !errorDiv) {
+            console.warn('Some upload elements not found for:', inputId);
+            return;
+        }
+
+        // Click to upload
+        uploadArea.addEventListener('click', () => input.click());
+
+        // Drag and drop functionality
+        container.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            container.classList.add('dragover');
+        });
+
+        container.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            container.classList.remove('dragover');
+        });
+
+        container.addEventListener('drop', (e) => {
+            e.preventDefault();
+            container.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                input.files = files;
+                handleFile(files[0]);
+            }
+        });
+
+        // File input change
+        input.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                handleFile(file);
+            }
+        });
+
+        function handleFile(file) {
+            // Clear previous errors
+            errorDiv.style.display = 'none';
+            errorDiv.textContent = '';
+
+            // Validate file
+            const error = validateFile(file);
+            if (error) {
+                errorDiv.textContent = error;
+                errorDiv.style.display = 'block';
+                input.value = '';
+                preview.classList.remove('show');
+                container.classList.remove('has-file');
+                return;
+            }
+
+            // Show preview
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.innerHTML = `
+                    <img src="${e.target.result}" alt="Preview" />
+                    <div class="file-info">
+                        <strong>${file.name}</strong><br>
+                        Size: ${(file.size / 1024 / 1024).toFixed(2)} MB<br>
+                        Type: ${file.type}
+                    </div>
+                `;
+                preview.classList.add('show');
+                container.classList.add('has-file');
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    // Setup both upload areas
+    setupFileUpload('birthImage', 'birthImagePreview', 'birthImageUpload', 'birthUploadArea', 'birthImageError');
+    setupFileUpload('idCard', 'idCardPreview', 'idCardUpload', 'idUploadArea', 'idCardError');
+
+    // Form submission validation
+    const form = document.getElementById('birthCertificateForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const birthImage = document.getElementById('birthImage');
+            const idCard = document.getElementById('idCard');
+            const birthImageError = document.getElementById('birthImageError');
+            const idCardError = document.getElementById('idCardError');
+
+            let hasError = false;
+
+            // Validate birth image
+            if (!birthImage.files[0]) {
+                birthImageError.textContent = 'Birth certificate image is required';
+                birthImageError.style.display = 'block';
+                hasError = true;
+            } else {
+                const error = validateFile(birthImage.files[0]);
+                if (error) {
+                    birthImageError.textContent = error;
+                    birthImageError.style.display = 'block';
+                    hasError = true;
+                } else {
+                    birthImageError.style.display = 'none';
+                }
+            }
+
+            // Validate ID card
+            if (!idCard.files[0]) {
+                idCardError.textContent = 'ID card image is required';
+                idCardError.style.display = 'block';
+                hasError = true;
+            } else {
+                const error = validateFile(idCard.files[0]);
+                if (error) {
+                    idCardError.textContent = error;
+                    idCardError.style.display = 'block';
+                    hasError = true;
+                } else {
+                    idCardError.style.display = 'none';
+                }
+            }
+
+            if (hasError) {
+                e.preventDefault();
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

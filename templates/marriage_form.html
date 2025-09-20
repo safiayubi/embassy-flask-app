@@ -1,0 +1,358 @@
+{% extends "base.html" %}
+
+{% block title %}Birth Certificates - Econsulate{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+ <div class="form-container">
+                <div class="form-header">
+                    <h1>Marriage Certificate</h1>
+                    <p>Complete the form below to create a new marriage certificate for both spouses</p>
+                </div>
+
+                <form id="marriageCertificateForm">
+                    <!-- Person 1 Section -->
+                    <div class="person-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <svg width="24" height="24" fill="white" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <div class="section-title">
+                                <h2>First Person (Spouse 1)</h2>
+                                <p class="section-subtitle">Complete all information for the first spouse</p>
+                            </div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" for="person1FamilyName">Family Name</label>
+                                <input type="text" id="person1FamilyName" name="person1FamilyName" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="person1GivenName">Given Name</label>
+                                <input type="text" id="person1GivenName" name="person1GivenName" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Date of Birth</label>
+                                <div class="date-input-group">
+                                    <input type="number" placeholder="DD" min="1" max="31" class="form-input date-input" name="person1BirthDay" required>
+                                    <span class="date-separator">.</span>
+                                    <input type="number" placeholder="MM" min="1" max="12" class="form-input date-input" name="person1BirthMonth" required>
+                                    <span class="date-separator">.</span>
+                                    <input type="number" placeholder="YYYY" min="1900" max="2025" class="form-input date-input" name="person1BirthYear" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Gender</label>
+                                <div class="radio-group">
+                                    <div class="radio-option">
+                                        <input type="radio" id="person1Male" name="person1Gender" value="male" class="radio-input" required>
+                                        <label for="person1Male" class="radio-label">Male</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="person1Female" name="person1Gender" value="female" class="radio-input" required>
+                                        <label for="person1Female" class="radio-label">Female</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="person1PlaceOfBirth">Place of Birth</label>
+                                <select id="person1PlaceOfBirth" name="person1PlaceOfBirth" class="form-select" required>
+                                    <option value="">Choose your option</option>
+                                    <option value="afghanistan">Afghanistan</option>
+                                    <option value="germany">Germany</option>
+                                    <option value="other">Other Country</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="person1PassportNumber">Passport/Tazkira Number</label>
+                                <input type="text" id="person1PassportNumber" name="person1PassportNumber" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="person1FatherName">Father Name</label>
+                                <input type="text" id="person1FatherName" name="person1FatherName" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="person1MotherName">Mother Name</label>
+                                <input type="text" id="person1MotherName" name="person1MotherName" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="person1Nationality">Nationality</label>
+                                <input type="text" id="person1Nationality" name="person1Nationality" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="person1Address">Current Address</label>
+                                <input type="text" id="person1Address" name="person1Address" class="form-input" required>
+                            </div>
+                        </div>
+
+                        <!-- Upload sections for Person 1 -->
+                        <div class="upload-section">
+                            <h3>
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                                </svg>
+                                Documents for First Person
+                            </h3>
+                            
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Certificate Photo</label>
+                                    <p class="upload-description">This image will appear in the marriage certificate</p>
+                                    <div class="upload-container" id="person1ImageUpload">
+                                        <div class="upload-area">
+                                            <svg class="upload-icon" width="40" height="40" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <h4>Upload Photo</h4>
+                                            <p>Drop image here or click to browse</p>
+                                            <p class="file-types">PNG, JPG, JPEG up to 5MB</p>
+                                        </div>
+                                        <input type="file" id="person1Image" name="person1Image" accept="image/*" class="file-input" required>
+                                        <div class="upload-preview" id="person1ImagePreview"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">ID Card Verification</label>
+                                    <p class="upload-description">For verification purposes only - will not appear in certificate</p>
+                                    <div class="upload-container" id="person1IdUpload">
+                                        <div class="upload-area">
+                                            <svg class="upload-icon" width="40" height="40" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <h4>Upload ID Card</h4>
+                                            <p>Drop ID card here or click to browse</p>
+                                            <p class="file-types">PNG, JPG, JPEG up to 5MB</p>
+                                        </div>
+                                        <input type="file" id="person1Id" name="person1Id" accept="image/*" class="file-input" required>
+                                        <div class="upload-preview" id="person1IdPreview"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Person 2 Section -->
+                    <div class="person-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <svg width="24" height="24" fill="white" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <div class="section-title">
+                                <h2>Second Person (Spouse 2)</h2>
+                                <p class="section-subtitle">Complete all information for the second spouse</p>
+                            </div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" for="person2FamilyName">Family Name</label>
+                                <input type="text" id="person2FamilyName" name="person2FamilyName" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="person2GivenName">Given Name</label>
+                                <input type="text" id="person2GivenName" name="person2GivenName" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Date of Birth</label>
+                                <div class="date-input-group">
+                                    <input type="number" placeholder="DD" min="1" max="31" class="form-input date-input" name="person2BirthDay" required>
+                                    <span class="date-separator">.</span>
+                                    <input type="number" placeholder="MM" min="1" max="12" class="form-input date-input" name="person2BirthMonth" required>
+                                    <span class="date-separator">.</span>
+                                    <input type="number" placeholder="YYYY" min="1900" max="2025" class="form-input date-input" name="person2BirthYear" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Gender</label>
+                                <div class="radio-group">
+                                    <div class="radio-option">
+                                        <input type="radio" id="person2Male" name="person2Gender" value="male" class="radio-input" required>
+                                        <label for="person2Male" class="radio-label">Male</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="person2Female" name="person2Gender" value="female" class="radio-input" required>
+                                        <label for="person2Female" class="radio-label">Female</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="person2PlaceOfBirth">Place of Birth</label>
+                                <select id="person2PlaceOfBirth" name="person2PlaceOfBirth" class="form-select" required>
+                                    <option value="">Choose your option</option>
+                                    <option value="afghanistan">Afghanistan</option>
+                                    <option value="germany">Germany</option>
+                                    <option value="other">Other Country</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="person2PassportNumber">Passport/Tazkira Number</label>
+                                <input type="text" id="person2PassportNumber" name="person2PassportNumber" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="person2FatherName">Father Name</label>
+                                <input type="text" id="person2FatherName" name="person2FatherName" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="person2MotherName">Mother Name</label>
+                                <input type="text" id="person2MotherName" name="person2MotherName" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="person2Nationality">Nationality</label>
+                                <input type="text" id="person2Nationality" name="person2Nationality" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="person2Address">Current Address</label>
+                                <input type="text" id="person2Address" name="person2Address" class="form-input" required>
+                            </div>
+                        </div>
+
+                        <!-- Upload sections for Person 2 -->
+                        <div class="upload-section">
+                            <h3>
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                                </svg>
+                                Documents for Second Person
+                            </h3>
+                            
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Certificate Photo</label>
+                                    <p class="upload-description">This image will appear in the marriage certificate</p>
+                                    <div class="upload-container" id="person2ImageUpload">
+                                        <div class="upload-area">
+                                            <svg class="upload-icon" width="40" height="40" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <h4>Upload Photo</h4>
+                                            <p>Drop image here or click to browse</p>
+                                            <p class="file-types">PNG, JPG, JPEG up to 5MB</p>
+                                        </div>
+                                        <input type="file" id="person2Image" name="person2Image" accept="image/*" class="file-input" required>
+                                        <div class="upload-preview" id="person2ImagePreview"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">ID Card Verification</label>
+                                    <p class="upload-description">For verification purposes only - will not appear in certificate</p>
+                                    <div class="upload-container" id="person2IdUpload">
+                                        <div class="upload-area">
+                                            <svg class="upload-icon" width="40" height="40" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <h4>Upload ID Card</h4>
+                                            <p>Drop ID card here or click to browse</p>
+                                            <p class="file-types">PNG, JPG, JPEG up to 5MB</p>
+                                        </div>
+                                        <input type="file" id="person2Id" name="person2Id" accept="image/*" class="file-input" required>
+                                        <div class="upload-preview" id="person2IdPreview"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Marriage Details Section -->
+                    <div class="marriage-details">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <svg width="24" height="24" fill="white" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <div class="section-title">
+                                <h2>Marriage Details</h2>
+                                <p class="section-subtitle">Information about the marriage ceremony</p>
+                            </div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Date of Marriage</label>
+                                <div class="date-input-group">
+                                    <input type="number" placeholder="DD" min="1" max="31" class="form-input date-input" name="marriageDay" required>
+                                    <span class="date-separator">.</span>
+                                    <input type="number" placeholder="MM" min="1" max="12" class="form-input date-input" name="marriageMonth" required>
+                                    <span class="date-separator">.</span>
+                                    <input type="number" placeholder="YYYY" min="1900" max="2025" class="form-input date-input" name="marriageYear" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="marriagePlace">Place of Marriage</label>
+                                <input type="text" id="marriagePlace" name="marriagePlace" class="form-input" placeholder="City, Country" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="officiant">Marriage Officiant</label>
+                                <input type="text" id="officiant" name="officiant" class="form-input" placeholder="Name of person who performed the ceremony" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="witness1">Witness 1 Name</label>
+                                <input type="text" id="witness1" name="witness1" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="witness2">Witness 2 Name</label>
+                                <input type="text" id="witness2" name="witness2" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="certificateNumber">Certificate Number</label>
+                                <input type="text" id="certificateNumber" name="certificateNumber" class="form-input" placeholder="Will be auto-generated if left empty">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="agreeTerms" name="agreeTerms" class="checkbox-input" required>
+                        <label for="agreeTerms" class="checkbox-label">
+                            I hereby confirm that all the information provided above is accurate and complete to the best of my knowledge. I understand that providing false information may result in legal consequences. Both parties consent to this marriage certificate application.
+                        </label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
+                            </svg>
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            Create Marriage Certificate
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+<!-- Rest of your birth.html content -->
+{% endblock %}

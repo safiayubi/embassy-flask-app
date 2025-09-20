@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Econsulate{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1>Dashboard Overview</h1>
+    <p>Welcome to your Econsulate management system. Monitor your certificate processing and analytics.</p>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-header">
+            <div class="stat-icon">
+                <svg width="30" height="30" fill="white" viewBox="0 0 20 20">
+                    <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                </svg>
+            </div>
+            <div class="stat-title">
+                <h3>Birth Certificates</h3>
+                <div class="stat-period">Today</div>
+            </div>
+        </div>
+        <div class="stat-number">13</div>
+        <div class="stat-change positive">
+            <span>Total processed: 29,215</span>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-header">
+            <div class="stat-icon">
+                <svg width="30" height="30" fill="white" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/>
+                </svg>
+            </div>
+            <div class="stat-title">
+                <h3>Celibacy Certificates</h3>
+                <div class="stat-period">Today</div>
+            </div>
+        </div>
+        <div class="stat-number">1</div>
+        <div class="stat-change positive">
+            <span>Total processed: 838</span>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-header">
+            <div class="stat-icon">
+                <svg width="30" height="30" fill="white" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+                </svg>
+            </div>
+            <div class="stat-title">
+                <h3>Marriage Certificates</h3>
+                <div class="stat-period">Today</div>
+            </div>
+        </div>
+        <div class="stat-number">3</div>
+        <div class="stat-change positive">
+            <span>Total processed: 3,037</span>
+        </div>
+    </div>
+</div>
+
+<div class="chart-section">
+    <div class="chart-header">
+        <h2>Revenue Overview</h2>
+        <p class="chart-subtitle">Past 6 months performance tracking</p>
+    </div>
+    <div class="chart-container">
+        <canvas id="revenueChart"></canvas>
+    </div>
+</div>
+
+<div class="footer">
+    <p>Designed and Developed by Bonn Consulate © 2025 MFA Afghanistan. All rights reserved.</p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Initialize the revenue chart
+    const ctx = document.getElementById('revenueChart').getContext('2d');
+    
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgba(102, 126, 234, 0.8)');
+    gradient.addColorStop(1, 'rgba(118, 75, 162, 0.1)');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['April', 'May', 'June', 'July', 'August', 'September'],
+            datasets: [{
+                label: 'Revenue',
+                data: [12000, 19000, 15000, 25000, 22000, 30000],
+                borderColor: '#667eea',
+                backgroundColor: gradient,
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: '#667eea',
+                pointBorderColor: '#fff',
+                pointBorderWidth: 3,
+                pointRadius: 6,
+                pointHoverRadius: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        color: '#666'
+                    }
+                },
+                y: {
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    },
+                    ticks: {
+                        color: '#666',
+                        callback: function(value) {
+                            return '$' + value.toLocaleString();
+                        }
+                    }
+                }
+            },
+            elements: {
+                point: {
+                    hoverBackgroundColor: '#667eea'
+                }
+            }
+        }
+    });
+
+    // Add some interactivity to nav links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('.nav-link.active').classList.remove('active');
+            this.classList.add('active');
+            window.location.href = this.href;
+        });
+    });
+
+    // Add counter animation for stats
+    function animateCounter(element, target) {
+        let current = 0;
+        const increment = target / 100;
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            element.textContent = Math.floor(current).toLocaleString();
+        }, 20);
+    }
+
+    // Animate counters when page loads
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const counters = document.querySelectorAll('.stat-number');
+            const targets = [13, 1, 3];
+            counters.forEach((counter, index) => {
+                animateCounter(counter, targets[index]);
+            });
+        }, 500);
+    });
+</script>
+{% endblock %}

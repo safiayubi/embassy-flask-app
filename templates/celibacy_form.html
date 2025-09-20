@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+
+{% block title %}Birth Certificates - Econsulate{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+ <div class="form-container">
+    <div class="form-header">
+        <h1>Celibacy Certificate</h1>
+        <p>Complete the form below to create a new celibacy certificate</p>
+    </div>
+
+    <form id="celibacyCertificateForm">
+        <!-- Person Section -->
+        <div class="person-section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <svg width="24" height="24" fill="white" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <div class="section-title">
+                    <h2>Personal Information</h2>
+                    <p class="section-subtitle">Complete all information for the certificate</p>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label" for="personFamilyName">Family Name</label>
+                    <input type="text" id="personFamilyName" name="personFamilyName" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="personGivenName">Given Name</label>
+                    <input type="text" id="personGivenName" name="personGivenName" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Date of Birth</label>
+                    <div class="date-input-group">
+                        <input type="number" placeholder="DD" min="1" max="31" class="form-input date-input" name="personBirthDay" required>
+                        <span class="date-separator">.</span>
+                        <input type="number" placeholder="MM" min="1" max="12" class="form-input date-input" name="personBirthMonth" required>
+                        <span class="date-separator">.</span>
+                        <input type="number" placeholder="YYYY" min="1900" max="2025" class="form-input date-input" name="personBirthYear" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Gender</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="personMale" name="personGender" value="male" class="radio-input" required>
+                            <label for="personMale" class="radio-label">Male</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="personFemale" name="personGender" value="female" class="radio-input" required>
+                            <label for="personFemale" class="radio-label">Female</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="personPlaceOfBirth">Place of Birth</label>
+                    <select id="personPlaceOfBirth" name="personPlaceOfBirth" class="form-select" required>
+                        <option value="">Choose your option</option>
+                        <option value="afghanistan">Afghanistan</option>
+                        <option value="germany">Germany</option>
+                        <option value="other">Other Country</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="personPassportNumber">Passport/Tazkira Number</label>
+                    <input type="text" id="personPassportNumber" name="personPassportNumber" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="personFatherName">Father Name</label>
+                    <input type="text" id="personFatherName" name="personFatherName" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="personMotherName">Mother Name</label>
+                    <input type="text" id="personMotherName" name="personMotherName" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="personNationality">Nationality</label>
+                    <input type="text" id="personNationality" name="personNationality" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="personAddress">Current Address</label>
+                    <input type="text" id="personAddress" name="personAddress" class="form-input" required>
+                </div>
+            </div>
+
+            <!-- Upload sections -->
+            <div class="upload-section">
+                <h3>
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                    </svg>
+                    Documents
+                </h3>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Certificate Photo</label>
+                        <p class="upload-description">This image will appear in the celibacy certificate</p>
+                        <div class="upload-container" id="personImageUpload">
+                            <div class="upload-area">
+                                <svg class="upload-icon" width="40" height="40" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+                                </svg>
+                                <h4>Upload Photo</h4>
+                                <p>Drop image here or click to browse</p>
+                                <p class="file-types">PNG, JPG, JPEG up to 5MB</p>
+                            </div>
+                            <input type="file" id="personImage" name="personImage" accept="image/*" class="file-input" required>
+                            <div class="upload-preview" id="personImagePreview"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">ID Card Verification</label>
+                        <p class="upload-description">For verification purposes only - will not appear in certificate</p>
+                        <div class="upload-container" id="personIdUpload">
+                            <div class="upload-area">
+                                <svg class="upload-icon" width="40" height="40" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/>
+                                </svg>
+                                <h4>Upload ID Card</h4>
+                                <p>Drop ID card here or click to browse</p>
+                                <p class="file-types">PNG, JPG, JPEG up to 5MB</p>
+                            </div>
+                            <input type="file" id="personId" name="personId" accept="image/*" class="file-input" required>
+                            <div class="upload-preview" id="personIdPreview"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Certificate Details Section -->
+        <div class="marriage-details">
+            <div class="section-header">
+                <div class="section-icon">
+                    <svg width="24" height="24" fill="white" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <div class="section-title">
+                    <h2>Certificate Details</h2>
+                    <p class="section-subtitle">Information about the celibacy certificate</p>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">Date of Issue</label>
+                    <div class="date-input-group">
+                        <input type="number" placeholder="DD" min="1" max="31" class="form-input date-input" name="issueDay" required>
+                        <span class="date-separator">.</span>
+                        <input type="number" placeholder="MM" min="1" max="12" class="form-input date-input" name="issueMonth" required>
+                        <span class="date-separator">.</span>
+                        <input type="number" placeholder="YYYY" min="1900" max="2025" class="form-input date-input" name="issueYear" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="issuePlace">Place of Issue</label>
+                    <input type="text" id="issuePlace" name="issuePlace" class="form-input" placeholder="City, Country" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="issuingAuthority">Issuing Authority</label>
+                    <input type="text" id="issuingAuthority" name="issuingAuthority" class="form-input" placeholder="Name of issuing authority" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="purpose">Purpose of Certificate</label>
+                    <input type="text" id="purpose" name="purpose" class="form-input" placeholder="Reason for requesting this certificate" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="certificateNumber">Certificate Number</label>
+                    <input type="text" id="certificateNumber" name="certificateNumber" class="form-input" placeholder="Will be auto-generated if left empty">
+                </div>
+            </div>
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="agreeTerms" name="agreeTerms" class="checkbox-input" required>
+            <label for="agreeTerms" class="checkbox-label">
+                I hereby confirm that all the information provided above is accurate and complete to the best of my knowledge. I understand that providing false information may result in legal consequences. I declare that I am currently celibate and have never been married.
+            </label>
+        </div>
+
+        <div class="form-actions">
+            <button type="button" class="btn btn-secondary">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
+                </svg>
+                Cancel
+            </button>
+            <button type="submit" class="btn btn-primary">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                Create Celibacy Certificate
+            </button>
+        </div>
+    </form>
+</div>
+<!-- Rest of your birth.html content -->
+{% endblock %}

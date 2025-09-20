@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}Birth Certificates - Econsulate{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="page-header">
+    <div class="header-info">
+        <h1>Birth Certificates</h1>
+        <p>Manage and view all birth certificates issued by your consulate</p>
+    </div>
+    <div class="header-actions">
+      <a href="{{ url_for('create_birth_certificate') }}" class="btn btn-primary d-flex align-items-center gap-2">
+    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+    </svg>
+    Create New Certificate
+</a>
+    </div>
+</div>
+
+<!-- Certificates Table -->
+<div class="certificates-table">
+    <table>
+        <thead>
+            <tr>
+                <th>Certificate ID</th>
+                <th>Full Name</th>
+                <th>Date of Birth</th>
+                <th>Place of Birth</th>
+                <th>Status</th>
+                <th>Created Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for certificate in certificates %}
+            <tr>
+                <td>{{ certificate.id }}</td>
+                <td>{{ certificate.family_name }}, {{ certificate.given_name }}</td>
+                <td>{{ certificate.date_of_birth }}</td>
+                <td>
+                   {% if certificate.place_of_birth|lower == 'afghanistan' %}
+    AFGHANISTAN
+{% elif certificate.place_of_birth|lower == 'germany' %}
+    GERMANY
+{% else %}
+    {{ certificate.place_of_birth|upper }}
+{% endif %}
+
+                </td>
+                <td>
+                    <span class="status-badge status-{{ certificate.status }}">
+                        {{ certificate.status }}
+                    </span>
+                </td>
+                <td>{{ certificate.created_at.strftime('%d.%m.%Y') }}</td>
+                <td>
+                    <a href="{{ url_for('view_birth_certificate', certificate_id=certificate.id) }}" 
+                       class="btn btn-view">
+                        View
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .certificates-table {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    
+    .certificates-table table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .certificates-table th, 
+    .certificates-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .certificates-table th {
+        background: #f8f9fa;
+        font-weight: 600;
+        color: #444;
+    }
+    
+    .status-badge {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+    
+    .status-completed {
+        background: #d4edda;
+        color: #155724;
+    }
+    
+    .status-pending {
+        background: #fff3cd;
+        color: #856404;
+    }
+    
+    .btn-view {
+        background: #2c5aa0;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+    
+    .btn-view:hover {
+        background: #1c4a80;
+    }
+</style>
+{% endblock %}
