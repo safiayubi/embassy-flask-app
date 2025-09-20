@@ -11,8 +11,10 @@ import barcode
 from barcode.writer import ImageWriter
 
 app = Flask(__name__)
-app.secret_key = 'your-secret-key-here'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///certificates.db'
+app.secret_key = os.environ.get('SECRET_KEY', 'your-secret-key-here')
+
+# Database configuration with environment variable support
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///certificates.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # File upload settings
@@ -150,6 +152,7 @@ try:
     with app.app_context():
         db.create_all()
         print("Database tables created successfully")
+        print(f"Using database: {app.config['SQLALCHEMY_DATABASE_URI']}")
 except Exception as e:
     print(f"Error creating tables: {e}")
     print("If you see 'Table already defined' error, delete certificates.db file and restart")
@@ -170,10 +173,18 @@ CELIBACY_CERTIFICATES = [
     }
 ]
 
-# Users
+# Users - can also be moved to environment variables for better security
 USERS = {
-    'admin@econsulate.gov.af': {'name': 'System Administrator', 'password': 'admin123', 'role': 'admin'},
-    'user@econsulate.gov.af': {'name': 'Regular User', 'password': 'user123', 'role': 'user'}
+    'admin@econsulate.gov.af': {
+        'name': 'System Administrator', 
+        'password': os.environ.get('ADMIN_PASSWORD', 'admin123'), 
+        'role': 'admin'
+    },
+    'user@econsulate.gov.af': {
+        'name': 'Regular User', 
+        'password': os.environ.get('USER_PASSWORD', 'user123'), 
+        'role': 'user'
+    }
 }
 
 # Decorators
@@ -408,4 +419,7 @@ def reset_db_route():
     return "Database reset complete. All data has been deleted and tables recreated."
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Use environment variables for production settings
+    port = int(os.environ.get('PORT', 5000))
+    debug = os.environ.get('FLASK_DEBUG', 'True').lower() == 'true'
+    app.run(host='0.0.0.0', port=port, debug=debug)
